@@ -1,0 +1,25 @@
+{
+  "name": "myweb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "",
+  "scripts": {
+    "start": "nodemon --exec ts-node index.ts",
+    "apidoc": "apidoc -i modules/ -o public/apidoc/"
+  },
+  "author": "nero",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/koa": "^2.11.3",
+    "@types/koa__router": "^8.0.4",
+    "@types/node": "^14.0.12",
+    "apidoc": "^0.26.0",
+    "nodemon": "^2.0.7",
+    "typescript": "^3.9.5"
+  },
+  "dependencies": {
+    "ts-node": "^8.10.2",
+    "koa": "^2.12.0",
+    "@koa/router": "^10.0.0"
+  }
+}
