@@ -1,0 +1,12 @@
+{
+  "ignore":["dist", "node_modules"],
+  "verbose": true,
+  "ext": "ts",
+  "watch":[
+    "./src/**"
+  ],
+  "env":{
+    "NODE_ENV":"env",
+    "PORT":"3000"
+  }
+}

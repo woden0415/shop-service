@@ -33,7 +33,7 @@ router.get('/info', (ctx:Context,next:Next) => {
  */
 
 router.get('/login', (ctx:Context,next:Next) => {
-  ctx.body = '用户登录';
+  ctx.body = '用户登录6';
   next();
 });
 

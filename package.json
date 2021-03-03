@@ -2,9 +2,10 @@
   "name": "myweb",
   "version": "1.0.0",
   "description": "",
-  "main": "",
+  "main": "dist/index.js",
   "scripts": {
-    "dev": "nodemon --exec ts-node index.ts",
+    "compile": "tsc && node dist/index.js",
+    "dev": "nodemon --exec npm run compile",
     "apidoc": "apidoc -i src/modules -o public/apidoc/"
   },
   "author": "nero",
