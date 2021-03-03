@@ -1,9 +1,13 @@
 import * as Koa from "koa";
 import router from './src/route';
 import * as KoaStatic from 'koa-static';
+import * as BodyParser from 'koa-bodyparser';
+
 const app = new Koa();
-app.use(KoaStatic(__dirname+'/public'));
-app.use(KoaStatic('.'));
+app.use(KoaStatic(__dirname + '/public'));
+
+app.use(BodyParser());
+
 app.use(router.routes());
 app.use(router.allowedMethods());
 
