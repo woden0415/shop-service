@@ -10,8 +10,8 @@ import Res from "../../utils/res";
 const router = new KoaRouter();
 
 router.get('/info', (ctx: Context, next: Next) => {
-  // ctx.body = Res.responseOk<ResUserInfo>(ctx.request.query);
-  ctx.body = Res.responseFail<ResUserInfo>('111', {}, '无法获取用户信息');
+  ctx.body = Res.responseOk<ResUserInfo>(ctx.request.query);
+  // ctx.body = Res.responseFail<ResUserInfo>('111', {}, '无法获取用户信息');
   next();
 });
 

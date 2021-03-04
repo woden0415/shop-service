@@ -13,11 +13,6 @@ interface IResBasic<T> {
 }
 
 export default class Res<T extends boolean>{
-  code: string
-  datas: T
-  message: string
-  success: boolean
-  timestamp: Date
 
   static responseOk<T>(datas: any): IResBasic<T>{
     return {
