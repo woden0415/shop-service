@@ -6,10 +6,12 @@
 
 import { Context, Next } from "koa";
 import * as KoaRouter from '@koa/router';
+import Res from "../../utils/res";
 const router = new KoaRouter();
 
-router.get('/info', (ctx:Context,next:Next) => {
-  ctx.body = ctx.request.query;
+router.get('/info', (ctx: Context, next: Next) => {
+  // ctx.body = Res.responseOk<ResUserInfo>(ctx.request.query);
+  ctx.body = Res.responseFail<ResUserInfo>('111', {}, '无法获取用户信息');
   next();
 });
 
@@ -40,10 +42,10 @@ router.get('/login', (ctx: Context, next: Next) => {
  * @api {post} /user/register 用户注册
  * @apiName user/register
  * @apiGroup user
- * @apiParam {string} email 邮箱
- * @apiParam {string} pwd 密码
- * @apiParam {string} phone 手机号
- * @apiParam {string} captcha 手机验证码
+ * @apiParam {string} [email] 邮箱
+ * @apiParam {string} [pwd] 密码
+ * @apiParam {string} [phone] 手机号
+ * @apiParam {string} [captcha] 手机验证码
  * @apiSuccess {json} result
  * @apiSuccessExample {json} Success-Response:
  *  {
