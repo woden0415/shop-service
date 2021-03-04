@@ -44,11 +44,13 @@ User.init({
     comment: '密码',
   },
   createtime: {
-    type: DataTypes.TIME, defaultValue: DataTypes.NOW, comment: '创建时间'
+    type: DataTypes.TIME,
+    defaultValue: DataTypes.NOW,
+    comment: '创建时间'
   }
 }, {
-  sequelize,
-  timestamps: true,
-  tableName: 'user'
+    sequelize,
+    tableName: 'user',
+    timestamps: false
 });
 User.sync({ force: true });
