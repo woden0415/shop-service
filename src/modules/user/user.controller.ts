@@ -7,6 +7,9 @@
 import { Context, Next } from "koa";
 import * as KoaRouter from '@koa/router';
 import Res from "../../utils/res";
+import db from "../../utils/db";
+import { User } from "./user.dao";
+import { ResUserInfo } from "./user.interface";
 const router = new KoaRouter();
 
 router.get('/info', (ctx: Context, next: Next) => {
@@ -58,7 +61,16 @@ router.get('/login', (ctx: Context, next: Next) => {
  * @apiSampleRequest http://localhost:3000/user/login
  * @apiVersion 1.0.0
  */
-router.post('/register', (ctx: Context, next: Next) => {
+router.post('/register', async (ctx: Context, next: Next) => {
+  const connection = await db;
+  const user = new User();
+  user.firstName = "12121";
+  user.lastName = "22222";
+  user.age = 25;
+  await connection.manager.save(user);
+  console.log('11111 :>> ', 11111);
+  const users = await connection.manager.find(User);
+  console.log('users :>> ', users);
   ctx.body = ctx.request.body;
   next();
 })

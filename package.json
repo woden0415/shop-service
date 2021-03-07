@@ -4,8 +4,7 @@
   "description": "node商城",
   "main": "dist/index.js",
   "scripts": {
-    "dev": "nodemon --exec npm run compile",
-    "compile": "tsc && node dist/index.js",
+    "dev": "nodemon --exec ts-node index.ts",
     "apidoc": "apidoc -i src/modules -o public/apidoc/"
   },
   "author": "woden0415@163.com",
