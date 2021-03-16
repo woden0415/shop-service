@@ -2,7 +2,7 @@ import * as jwt from 'jsonwebtoken';
 const secretToken = 'woden-shop';
 
 function createToken(payload: object) {
-  return jwt.sign(payload, secretToken);
+  return jwt.sign(payload, secretToken, { expiresIn: 60 });
 }
 
 async function decodeToken(token: string) {
