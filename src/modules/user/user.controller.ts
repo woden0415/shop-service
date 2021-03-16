@@ -9,7 +9,7 @@ import * as KoaRouter from '@koa/router';
 import Res from "../../utils/res";
 import { User } from "./user.dao";
 import { IReqLogin, ResUserInfo } from "./user.interface";
-import { createToken } from "../../utils/jwt";
+import { createToken, decodeToken } from "../../utils/jwt";
 const router = new KoaRouter();
 
 router.get('/info', (ctx: Context, next: Next) => {
@@ -19,25 +19,22 @@ router.get('/info', (ctx: Context, next: Next) => {
 });
 
 /**
- * @api {post} /user/login 用户登录
- * @apiName user/login
+ * @api {post} /user/islogin 判断用户是否登录
+ * @apiName user/islogin
  * @apiGroup user
- * @apiParam {string} email 邮箱
- * @apiParam {string} pwd 密码
- * @apiSuccess {json} result
- * @apiSuccessExample {json} Success-Response:
- *  {
- *      "success" : "true",
- *      "result" : {
- *          "name" : "loginName",
- *      }
- *  }
- * @apiSampleRequest http://localhost:3000/user/login
+ * @apiSampleRequest http://localhost:3000/user/islogin
  * @apiVersion 1.0.0
  */
-router.get('/login', (ctx: Context, next: Next) => {
-  ctx.body = ctx.request.body;
-  next();
+router.get('/islogin', async (ctx: Context, next: Next) => {
+  const shoptoken = ctx.headers.token as string;
+  try {
+    const res = await decodeToken(shoptoken);
+    ctx.body = Res.responseOk({ msg: '登录成功' });
+  } catch (error) {
+    ctx.body = Res.responseFail('-1', {}, '登录信息失败，跳转到登录页面');
+  } finally {
+    next();
+  }
 });
 
 /**
@@ -71,7 +68,9 @@ router.post('/register', async (ctx: Context, next: Next) => {
   user.email = email;
   user.pwd = pwd;
   await user.saveUser(user);
-  ctx.body = createToken({ email, pwd });
+  ctx.body = Res.responseOk({
+    token: createToken({ email, pwd })
+  });
   next();
 })
 
