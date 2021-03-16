@@ -8,7 +8,8 @@ import { Context, Next } from "koa";
 import * as KoaRouter from '@koa/router';
 import Res from "../../utils/res";
 import { User } from "./user.dao";
-import { ResUserInfo } from "./user.interface";
+import { IReqLogin, ResUserInfo } from "./user.interface";
+import { createToken } from "../../utils/jwt";
 const router = new KoaRouter();
 
 router.get('/info', (ctx: Context, next: Next) => {
@@ -29,7 +30,6 @@ router.get('/info', (ctx: Context, next: Next) => {
  *      "success" : "true",
  *      "result" : {
  *          "name" : "loginName",
- *          "password" : "loginPass"
  *      }
  *  }
  * @apiSampleRequest http://localhost:3000/user/login
@@ -54,21 +54,24 @@ router.get('/login', (ctx: Context, next: Next) => {
  *      "success" : "true",
  *      "result" : {
  *          "name" : "loginName",
- *          "password" : "loginPass"
  *      }
  *  }
  * @apiSampleRequest http://localhost:3000/user/login
  * @apiVersion 1.0.0
  */
 router.post('/register', async (ctx: Context, next: Next) => {
+  const params: IReqLogin = ctx.request.body;
+  if (!params['email'] || !params['pwd']) {
+    ctx.body = Res.responseFail<ResUserInfo>('-1', null, '无法获取用户信息');
+    next();
+    return;
+  }
+  const { email, pwd } = params;
   const user = new User();
-  user.firstName = "12121";
-  user.lastName = "22222";
-  user.age = 25;
+  user.email = email;
+  user.pwd = pwd;
   await user.saveUser(user);
-  const list = await user.findUser({ firstName: "12121" });
-  console.log('list :>> ', list);
-  ctx.body = ctx.request.body;
+  ctx.body = createToken({ email, pwd });
   next();
 })
 

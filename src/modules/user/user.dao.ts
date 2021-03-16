@@ -6,15 +6,11 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  firstName: string;
+  @Column({ comment: '邮箱', length: 50 })
+  email: string;
 
-  @Column()
-  lastName: string;
-
-  @Column()
-  age: number;
-
+  @Column({ comment: '密码', length: 50 })
+  pwd: string;
 
 
   /**

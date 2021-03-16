@@ -6,3 +6,8 @@
 export interface ResUserInfo {
   [key: string]: string
 }
+
+export interface IReqLogin {
+  email: string,
+  pwd: string
+}
