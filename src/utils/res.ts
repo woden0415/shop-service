@@ -12,6 +12,10 @@ interface IResBasic<T> {
   datas: T
 }
 
+// 错误响应
+export interface IResFail {
+  [key: string]: string
+}
 export default class Res<T extends boolean>{
 
   static responseOk<T>(datas: any): IResBasic<T>{
